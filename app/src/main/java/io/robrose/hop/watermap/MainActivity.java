@@ -9,9 +9,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+//import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+//import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
@@ -31,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 10;
+    private final float ZOOM_LEVEL = 3;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -70,7 +72,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     protected void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
-        //footerNameTextView.setTypeface(robotoBold);
     }
 
     protected void onStop() {
