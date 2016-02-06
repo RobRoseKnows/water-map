@@ -138,7 +138,10 @@ public class AmazonDynamoDBSample {
             Map<String, String> m =new HashMap<String,String>();
             m.put("lat", "51.5034070"); 
             m.put("lng", "-0.1275920");
-            m.put("violationCode", "47" );
+            m.put("VIOLATION_CATEGORY_CODE", "47" );
+            m.put("CONTAMINANT_CODE", "47" );
+            m.put("VIOLATION_CODE", "47" );
+
 
             JSONObject request = new JSONObject(m);
             putPoint(request);
