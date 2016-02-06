@@ -3,6 +3,7 @@ package io.robrose.hop.watermap;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
