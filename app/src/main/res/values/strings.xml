@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Water Map</string>
-    <string name="title_activity_main">Main Map</string>
+    <string name="title_activity_main">Water Map</string>
+
+    <string name="internet_permission_rationale">We need the internet to pull data from the server.</string>
+    <string name="location_permission_rationale">We need access to your location to get nearby data.</string>
+
+    <string name="internet_permission_denied">Looks like there's not much more we can do.</string>
+    <string name="location_permission_denied">Manual location input will be added in a later version.</string>
 </resources>

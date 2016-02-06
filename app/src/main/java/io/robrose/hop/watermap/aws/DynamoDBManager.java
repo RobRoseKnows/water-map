@@ -1,5 +1,7 @@
 package io.robrose.hop.watermap.aws;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+
 /**
  * Manages the DynamoDB. Adapted from example code from Amazon.
  * https://github.com/awslabs/aws-sdk-android-samples/blob/master/DynamoDBMapper_UserPreference_Cognito/src/com/amazonaws/demo/userpreferencesom/DynamoDBManager.java
