@@ -1,5 +1,9 @@
 package io.robrose.hop.watermap.aws;
 
+import com.amazonaws.geo.model.GetPointRequest;
+import com.amazonaws.geo.model.GetPointResult;
+import com.amazonaws.geo.model.QueryRadiusRequest;
+import com.amazonaws.geo.model.QueryRadiusResult;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 /**
@@ -19,7 +23,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -47,7 +53,7 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 
-
+import io.robrose.hop.watermap.aws.util.WaterPin;
 /**
  * This sample demonstrates how to perform a few simple operations with the
  * Amazon DynamoDB service.
@@ -199,7 +205,24 @@ public class DynamoGeoClient {
 
         //printPutPointResult(putPointResult, out);
     }
-    //TODO: Make this for water sites!
+
+    public static WaterPin getPoint(GeoPoint point, String UUID){
+        AttributeValue attr= new AttributeValue().withS(UUID);
+        GetPointResult result = geoDataManager.getPoint(new GetPointRequest(point, attr));
+        return new WaterPin(result.getGetItemResult().getItem());
+    }
+
+    public  static List<WaterPin> getRadialPoints(GeoPoint point, double radius){
+       QueryRadiusResult result= geoDataManager.queryRadius(new QueryRadiusRequest(point, radius));
+        List<WaterPin> list = new ArrayList<>();
+        List<Map<String, AttributeValue>> rawList =result.getItem();
+        for (Map<String,AttributeValue> m: rawList) {
+            list.add(new WaterPin(m));
+        }
+        return  list;
+    }
+
+        //TODO: Make this for water sites!
     public static Map<String, AttributeValue> newItem(String name, int year, String rating, String... fans) {
         Map<String, AttributeValue> item = new HashMap<>();
         item.put("name", new AttributeValue(name));
