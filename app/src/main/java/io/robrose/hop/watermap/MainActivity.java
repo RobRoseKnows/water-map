@@ -1,6 +1,9 @@
 package io.robrose.hop.watermap;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.WindowDecorActionBar;
+import android.support.v7.widget.ActionBarContextView;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
