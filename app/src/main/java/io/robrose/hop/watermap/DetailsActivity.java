@@ -1,9 +1,12 @@
 package io.robrose.hop.watermap;
 
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class DetailsActivity extends AppCompatActivity {
+import butterknife.OnClick;
+
+public class DetailsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

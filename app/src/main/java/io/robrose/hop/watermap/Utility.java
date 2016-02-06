@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
  * Created by Robert on 2/6/2016.
  */
 public class Utility {
-    public static final int PERMISSION_REQUEST_INTERNET = 1;
     public static final int PERMISSION_REQUEST_LAST_LOCATION = 2;
 
     public static void showDialogText(int resId, Context context) {
@@ -43,10 +42,6 @@ public class Utility {
 
             // Show relevant rationale based on requestId.
             switch(requestId) {
-                case PERMISSION_REQUEST_INTERNET: {
-                    Utility.showDialogText(R.string.internet_permission_rationale, context);
-                    break;
-                }
                 case PERMISSION_REQUEST_LAST_LOCATION: {
                     Utility.showDialogText(R.string.location_permission_rationale, context);
                     break;

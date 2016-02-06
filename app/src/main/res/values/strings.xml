@@ -2,6 +2,7 @@
     <string name="app_name">Water Map</string>
     <string name="title_activity_main">Main Map</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -15,7 +16,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
 
@@ -74,7 +74,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_main">Water Map</string>
 
     <string name="internet_permission_rationale">We need the internet to pull data from the server.</string>
     <string name="location_permission_rationale">We need access to your location to get nearby data.</string>

@@ -28,7 +28,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     private Location mLastLocation;
     private SupportMapFragment mMapFragment;
 
-    public final int PERMISSION_REQUEST_INTERNET = Utility.PERMISSION_REQUEST_INTERNET;
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
 
     @Override
@@ -40,15 +39,8 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
-        // RIP simple calling.
-        if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            Utility.permissionRationaleAndRequest(this,
-                    Manifest.permission.INTERNET,
-                    PERMISSION_REQUEST_INTERNET);
-        } else {
             mMapFragment.getMapAsync(this);
-        }
+
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -129,17 +121,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            // Requested permission for INTERNET
-            case PERMISSION_REQUEST_INTERNET: {
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mMapFragment.getMapAsync(this);
-                } else {
-                    Utility.showDialogText(R.string.internet_permission_denied, this);
-                }
-
-                return;
-            }
-
             // Requested permission for ACCESS_COARSE_LOCATION
             case PERMISSION_REQUEST_LAST_LOCATION: {
                 try {
