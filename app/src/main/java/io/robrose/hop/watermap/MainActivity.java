@@ -9,11 +9,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.flipboard.bottomsheet.BottomSheetLayout;
+//import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
