@@ -9,15 +9,14 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class DetailsActivity extends ActionBarActivity {
-    Typeface robotoBold;
-
+    //private Typeface robotoBold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.tff");
+        //robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.tff");
 
     }
 }
