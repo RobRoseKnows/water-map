@@ -8,27 +8,32 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import android.support.design.widget.FloatingActionButton;
+import android.view.LayoutInflater;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class MainActivity extends ActionBarActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String LOG_TAG = "MainActivity";
+    public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private SupportMapFragment mMapFragment;
 
-    public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
+    @Bind(R.id.bottomsheet_main) BottomSheetLayout bottomSheetMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,8 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        bottomSheetMain.showWithSheetView(this.getLayoutInflater().inflate(R.layout.activity_main, bottomSheetMain, false));
     }
 
     protected void onStart() {
