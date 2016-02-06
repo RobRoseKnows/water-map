@@ -12,6 +12,10 @@
         android:layout_height="match_parent"
         tools:context="io.robrose.hop.watermap.MainActivity" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/my_location_fab"
         android:layout_width="wrap_content"
@@ -24,12 +28,25 @@
         fab:fab_colorPressed="#BBBBBB"
         fab:fab_colorRipple="#CCCCCC" />
 
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/add_point_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="72dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_pencil_white_24dp"
+        fab:fab_colorNormal="#FF0000"
+        fab:fab_colorPressed="#FF0000"
+        fab:fab_colorRipple="#AAAAAA" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom|center"
         android:padding="8dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:id="@+id/footer_name_bar">
         <TextView
             android:id="@+id/footer_name_textview"
             android:layout_width="wrap_content"

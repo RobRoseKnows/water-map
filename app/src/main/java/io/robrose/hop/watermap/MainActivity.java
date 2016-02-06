@@ -9,11 +9,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
@@ -33,7 +31,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 3;
+    private final float ZOOM_LEVEL = 10;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -41,7 +39,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     private SupportMapFragment mMapFragment;
 
     private Map<String, String> data;
-    private Typeface robotoBold;
+    //private Typeface robotoBold;
 
     @Bind(R.id.footer_name_textview) TextView footerNameTextView;
 
@@ -51,8 +49,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
-        footerNameTextView.setTypeface(robotoBold);
+        //robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -73,6 +70,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     protected void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
+        //footerNameTextView.setTypeface(robotoBold);
     }
 
     protected void onStop() {
@@ -91,7 +89,11 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         }
     }
 
-    @OnClick(R.id.footer_name_textview) void onClickFooterNameTextView() {
+    @OnClick(R.id.add_point_fab) void onClickAddPointFab() {
+
+    }
+
+    @OnClick(R.id.footer_name_bar) void onClickFooterNameBar() {
 
     }
 
@@ -119,7 +121,9 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
             }
 
             LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(home).title("You!"));
+            mMap.addMarker(new MarkerOptions()
+                    .position(home)
+                    .title("You!"));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
         }
 

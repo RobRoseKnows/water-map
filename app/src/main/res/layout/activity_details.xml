@@ -18,15 +18,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:layout_marginTop="-16dp"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Testing 123"
-            android:textSize="30sp"
-            android:id="@+id/detail_name_textview"/>
+            android:text="Place Name"
+            android:id="@+id/detail_name_textview"
+            style="@style/TextAppearance.AppCompat.Headline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 </LinearLayout>
