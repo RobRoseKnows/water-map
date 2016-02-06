@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Water Map</string>
+    <string name="title_activity_main">Main Map</string>
+</resources>
