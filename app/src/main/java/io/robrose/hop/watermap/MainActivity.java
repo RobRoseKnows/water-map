@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     private SupportMapFragment mMapFragment;
 
     private Map<String, String> data;
-    private Typeface robotoBold;
+    //private Typeface robotoBold;
 
     @Bind(R.id.footer_name_textview) TextView footerNameTextView;
 
@@ -51,8 +51,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
-        footerNameTextView.setTypeface(robotoBold);
+        //robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -91,7 +90,11 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         }
     }
 
-    @OnClick(R.id.footer_name_textview) void onClickFooterNameTextView() {
+    @OnClick(R.id.add_point_fab) void onClickAddPointFab() {
+
+    }
+
+    @OnClick(R.id.footer_name_bar) void onClickFooterNameBar() {
 
     }
 
@@ -119,7 +122,9 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
             }
 
             LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(home).title("You!"));
+            mMap.addMarker(new MarkerOptions()
+                    .position(home)
+                    .title("You!"));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
         }
 
