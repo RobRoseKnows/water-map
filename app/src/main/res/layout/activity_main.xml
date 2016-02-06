@@ -1,39 +1,44 @@
-<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomsheet_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="io.robrose.hop.watermap.MainActivity" />
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/my_location_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="72dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_crosshairs_gps"
+        fab:fab_colorNormal="#FFFFFF"
+        fab:fab_colorPressed="#BBBBBB"
+        fab:fab_colorRipple="#CCCCCC" />
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|center"
+        android:padding="8dp"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/footer_name_textview"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:context="io.robrose.hop.watermap.MainActivity" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/my_location_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="72dp"
-            android:layout_marginRight="16dp"
-            android:src="@drawable/ic_crosshairs_gps"
-            fab:fab_colorNormal="#FFFFFF"
-            fab:fab_colorPressed="#BBBBBB"
-            fab:fab_colorRipple="#CCCCCC" />
-
-        <android.support.v7.widget.ButtonBarLayout
-            android:layout_width="wrap_content"
-            android:layout_height="56dp">
-
-        </android.support.v7.widget.ButtonBarLayout>
-
+            android:layout_gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:text="Location"
+            android:textSize="24sp"
+            />
     </FrameLayout>
-</com.flipboard.bottomsheet.BottomSheetLayout>
+
+</FrameLayout>

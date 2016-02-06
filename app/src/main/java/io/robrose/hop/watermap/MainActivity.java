@@ -2,6 +2,7 @@ package io.robrose.hop.watermap;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -14,11 +15,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -27,18 +33,26 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
+    private final float ZOOM_LEVEL = 3;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private SupportMapFragment mMapFragment;
 
-    @Bind(R.id.bottomsheet_main) BottomSheetLayout bottomSheetMain;
+    private Map<String, String> data;
+    private Typeface robotoBold;
+
+    @Bind(R.id.footer_name_textview) TextView footerNameTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
+        footerNameTextView.setTypeface(robotoBold);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -54,8 +68,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                     .addApi(LocationServices.API)
                     .build();
         }
-
-        bottomSheetMain.showWithSheetView(this.getLayoutInflater().inflate(R.layout.activity_main, bottomSheetMain, false));
     }
 
     protected void onStart() {
@@ -68,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         super.onStop();
     }
 
-    @OnClick(R.id.my_location_fab) void onClickMyLocation() {
+    @OnClick(R.id.my_location_fab) void onClickMyLocationFab() {
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Utility.permissionRationaleAndRequest(this,
@@ -77,6 +89,10 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         } else {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         }
+    }
+
+    @OnClick(R.id.footer_name_textview) void onClickFooterNameTextView() {
+
     }
 
     /**
@@ -92,14 +108,24 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Utility.permissionRationaleAndRequest(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    PERMISSION_REQUEST_LAST_LOCATION);
-        } else {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(mGoogleApiClient.hasConnectedApi(LocationServices.API)) {
+            if(ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Utility.permissionRationaleAndRequest(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        PERMISSION_REQUEST_LAST_LOCATION);
+            } else {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            }
+
+            LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(home).title("You!"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
         }
+
+        LatLng home = new LatLng(37.4184, 122.0880);
+        mMap.addMarker(new MarkerOptions().position(home).title("Google!"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -112,7 +138,20 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
      */
     @Override
     public void onConnected(Bundle bundle) {
+        if(mGoogleApiClient.hasConnectedApi(LocationServices.API)) {
+            if(ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Utility.permissionRationaleAndRequest(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        PERMISSION_REQUEST_LAST_LOCATION);
+            } else {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            }
 
+            LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(home).title("You!"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
+        }
     }
 
     @Override
