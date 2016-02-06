@@ -12,10 +12,13 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.net.*;
+import java.io.*;
+import com.amazonaws.*;
+import com.amazonaws.util.json.*;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -49,8 +52,6 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.amazonaws.services.dynamodbv2.util.Tables;
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
 
 /**
  * This sample demonstrates how to perform a few simple operations with the
@@ -133,8 +134,8 @@ public class AmazonDynamoDBSample {
             DescribeTableRequest describeTableRequest = new DescribeTableRequest().withTableName(tableName);
             TableDescription tableDescription = dynamoDB.describeTable(describeTableRequest).getTable();
             System.out.println("Table Description: " + tableDescription);
-
-
+            
+            
             Map<String, String> m =new HashMap<String,String>();
             m.put("lat", "51.5034070"); 
             m.put("lng", "-0.1275920");
@@ -144,7 +145,11 @@ public class AmazonDynamoDBSample {
 
 
             JSONObject request = new JSONObject(m);
-            putPoint(request);
+            
+            String urlTop="http://iaspub.epa.gov//enviro//efservice//VIOLATION//WATER_SYSTEM//rows//"
+            String urlBottom ="//json"
+            getEPAData(urlTop,urlBottom);
+            // putPoint(request);
 
             ScanRequest scanRequest = new ScanRequest(tableName);
             ScanResult scanResult = dynamoDB.scan(scanRequest);
@@ -165,6 +170,37 @@ public class AmazonDynamoDBSample {
             System.out.println("Error Message: " + ace.getMessage());
         }
     }
+
+	private static void getEPAData(String url1, String url2) throws Exception {
+		// TODO take data from epa api and read into json
+
+		for (int i=0; i<2700000; i+=100){
+		String sapiURL=url1+Integer.toString(i)+":" + Integer.toString(i+99)+ url2;
+		URL apiURL = new URL(sapiURL); 
+		URLConnection con = apiURL.openConnection();
+		try{
+			BufferedReader bufcon = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inLine = bufcon.readLine();
+			bufcon.close();
+			JSONArray jaPull = new JSONArray(inLine);
+			if jaPull.length();
+			for (int j=0; j<jaPull.length(); j++){
+				putPoint(jaPull.getJSONObject(j));
+				}
+		}
+		catch(java.io.FileNotFoundException e){
+			System.out.println("Ended at: "+Integer.toString(i));
+			break;
+		}
+		catch(Exception f){
+			System.out.println(f);
+			System.out.println("Ended at: "+Integer.toString(i));
+			break;
+		}
+		}
+	}
+    
+    
 	private static void putPoint(JSONObject requestObject) throws IOException, JSONException {
 		GeoPoint geoPoint = new GeoPoint(requestObject.getDouble("lat"), requestObject.getDouble("lng"));
 		AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
