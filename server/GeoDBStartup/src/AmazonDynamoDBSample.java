@@ -47,6 +47,7 @@ import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
+import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
@@ -113,29 +114,19 @@ public class AmazonDynamoDBSample {
         	config = new GeoDataManagerConfiguration(dynamoDB, tableName);
     		geoDataManager = new GeoDataManager(config);
             // Create table if it does not exist yet
-            if (Tables.doesTableExist(dynamoDB, tableName)) {
-                System.out.println("Table " + tableName + " is already ACTIVE");
-            } else {
-                // Create a table with a primary hash key named 'name', which holds a string
-            	
-            	/*
-                CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-                    .withKeySchema(new KeySchemaElement().withAttributeName("name").withKeyType(KeyType.HASH))
-                    .withAttributeDefinitions(new AttributeDefinition().withAttributeName("name").withAttributeType(ScalarAttributeType.S))
-                    .withProvisionedThroughput(new ProvisionedThroughput().withReadCapacityUnits(1L).withWriteCapacityUnits(1L));
-                    TableDescription createdTableDescription = dynamoDB.createTable(createTableRequest).getTableDescription();
-                */
-            	//AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-        		
-
-        	
+            try {
+            	TableUtils.waitUntilExists(dynamoDB, tableName,2,1) ;                   
+                    	
         		CreateTableRequest createTableRequest = GeoTableUtil.getCreateTableRequest(config);
         		CreateTableResult createTableResult = dynamoDB.createTable(createTableRequest);
                 System.out.println("Created Table: " + tableName);
 
                 // Wait for it to become active
                 System.out.println("Waiting for " + tableName + " to become ACTIVE...");
-                Tables.awaitTableToBecomeActive(dynamoDB, tableName);
+                TableUtils.waitUntilActive(dynamoDB, tableName);
+            }catch (AmazonClientException e){
+                System.out.println("Table " + tableName + " is already ACTIVE");
+
             }
 
             // Describe our new table
@@ -143,31 +134,16 @@ public class AmazonDynamoDBSample {
             TableDescription tableDescription = dynamoDB.describeTable(describeTableRequest).getTable();
             System.out.println("Table Description: " + tableDescription);
 
-            // Add an item
-//            Map<String, AttributeValue> item = newItem("Bill & Ted's Excellent Adventure", 1989, "****", "James", "Sara");
-//            PutItemRequest putItemRequest = new PutItemRequest(tableName, item);
-//            PutItemResult putItemResult = dynamoDB.putItem(putItemRequest);
-//            System.out.println("Result: " + putItemResult);
-//
-//            // Add another item
-//            item = newItem("Airplane", 1980, "*****", "James", "Billy Bob");
-//            putItemRequest = new PutItemRequest(tableName, item);
-//            putItemResult = dynamoDB.putItem(putItemRequest);
-//            System.out.println("Result: " + putItemResult);
+
             Map<String, String> m =new HashMap<String,String>();
-            m.put("lat", "51.5034070");
+            m.put("lat", "51.5034070"); 
             m.put("lng", "-0.1275920");
             m.put("violationCode", "47" );
 
             JSONObject request = new JSONObject(m);
             putPoint(request);
-            // Scan items for movies with a year attribute greater than 1985
-            HashMap<String, Condition> scanFilter = new HashMap<String, Condition>();
-            Condition condition = new Condition()
-                .withComparisonOperator(ComparisonOperator.GT.toString())
-                .withAttributeValueList(new AttributeValue().withN("1985"));
-            scanFilter.put("year", condition);
-            ScanRequest scanRequest = new ScanRequest(tableName);//.withScanFilter(scanFilter);
+
+            ScanRequest scanRequest = new ScanRequest(tableName);
             ScanResult scanResult = dynamoDB.scan(scanRequest);
             System.out.println("Result: " + scanResult);
 
@@ -189,15 +165,21 @@ public class AmazonDynamoDBSample {
 	private static void putPoint(JSONObject requestObject) throws IOException, JSONException {
 		GeoPoint geoPoint = new GeoPoint(requestObject.getDouble("lat"), requestObject.getDouble("lng"));
 		AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
-		AttributeValue violationCodeAttributeValue = new AttributeValue().withS(requestObject.getString("violationCode"));
+		AttributeValue violationCategoryCodeAttributeValue = new AttributeValue().withS(requestObject.getString("VIOLATION_CATEGORY_CODE"));
+		AttributeValue contaminantCodeAttributeValue = new AttributeValue().withS(requestObject.getString("CONTAMINANT_CODE"));
+		AttributeValue violationCodeAttributeValue = new AttributeValue().withS(requestObject.getString("VIOLATION_CODE"));
 
 		PutPointRequest putPointRequest = new PutPointRequest(geoPoint, rangeKeyAttributeValue);
-		putPointRequest.getPutItemRequest().addItemEntry("violationCode", violationCodeAttributeValue);
+		putPointRequest.getPutItemRequest().addItemEntry("VIOLATION_CATEGORY_CODE", violationCategoryCodeAttributeValue);
+		putPointRequest.getPutItemRequest().addItemEntry("CONTAMINANT_CODE", contaminantCodeAttributeValue);
+		putPointRequest.getPutItemRequest().addItemEntry("VIOLATION_CODE", violationCodeAttributeValue);
+
 
 		PutPointResult putPointResult = geoDataManager.putPoint(putPointRequest);
 
 		//printPutPointResult(putPointResult, out);
 	}
+	//TODO: Make this for water sites!
     private static Map<String, AttributeValue> newItem(String name, int year, String rating, String... fans) {
         Map<String, AttributeValue> item = new HashMap<String, AttributeValue>();
         item.put("name", new AttributeValue(name));
