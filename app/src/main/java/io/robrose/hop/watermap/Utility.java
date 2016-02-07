@@ -12,7 +12,13 @@ import android.support.v7.app.AlertDialog;
  */
 public class Utility {
     public static final int PERMISSION_REQUEST_LAST_LOCATION = 2;
+    public static final String BUNDLE_GROUP_NUMBER = "num";
 
+    /**
+     * This function shows text in a dialog box from a given string resId and the app context.
+     * @param resId String to display.
+     * @param context App context.
+     */
     public static void showDialogText(int resId, Context context) {
         // Show them a dialog with the rationale.
         AlertDialog.Builder rationaleAlert = new AlertDialog.Builder(context);

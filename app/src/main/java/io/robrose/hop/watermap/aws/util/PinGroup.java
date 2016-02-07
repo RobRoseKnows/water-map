@@ -1,8 +1,5 @@
 package io.robrose.hop.watermap.aws.util;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.amazonaws.geo.model.GeoPoint;
 
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ import io.robrose.hop.watermap.aws.util.WaterPin;
 /**
  * The PinGroup class holds all the pins from a given zipcode.
  */
-public class PinGroup implements Parcelable{
+public class PinGroup {
 
 
     public int zipCode;
@@ -35,16 +32,12 @@ public class PinGroup implements Parcelable{
         group.add(pin);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public WaterPin pull(int i) {
+        return group.get(i);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(zipCode);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writ
+    public ArrayList<WaterPin> getGroup() {
+        return group;
     }
+
 }
