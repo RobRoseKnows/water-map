@@ -12,10 +12,6 @@
         android:layout_height="match_parent"
         tools:context="io.robrose.hop.watermap.MainActivity" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/my_location_fab"
         android:layout_width="wrap_content"
@@ -53,7 +49,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:textColor="#FFFFFF"
-            android:text="Location"
+            android:text="Search"
             android:textSize="24sp"
             />
     </FrameLayout>

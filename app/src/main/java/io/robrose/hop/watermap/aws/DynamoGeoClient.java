@@ -1,5 +1,9 @@
 package io.robrose.hop.watermap.aws;
 
+import com.amazonaws.geo.model.GetPointRequest;
+import com.amazonaws.geo.model.GetPointResult;
+import com.amazonaws.geo.model.QueryRadiusRequest;
+import com.amazonaws.geo.model.QueryRadiusResult;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 /**
@@ -19,7 +23,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -47,7 +53,8 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 
-
+import io.robrose.hop.watermap.aws.util.Constants;
+import io.robrose.hop.watermap.aws.util.WaterPin;
 /**
  * This sample demonstrates how to perform a few simple operations with the
  * Amazon DynamoDB service.
@@ -57,6 +64,8 @@ public class DynamoGeoClient {
     private static GeoDataManager geoDataManager;
     private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
     private static String secretKey = "YpwBdGgvn6cBR6RTHTCoZb3FlCAf7JRgF8arwV33";
+    private static boolean initialized = false;
+
     /*
      * Before running the code:
      *      Fill in your AWS access credentials in the provided credentials
@@ -86,6 +95,9 @@ public class DynamoGeoClient {
 
 
     public static void init()  {
+        if(initialized)
+            return;
+
         /*
          * The ProfileCredentialsProvider will return your [default]
          * credential profile by reading from the credentials file located at
@@ -105,7 +117,8 @@ public class DynamoGeoClient {
         dynamoDB = new AmazonDynamoDBClient(credentials);
         Region usEast1 = Region.getRegion(Regions.US_EAST_1);
         dynamoDB.setRegion(usEast1);
-        main(null);
+
+        initialized = true;
     }
 
     public static void main(String[] args) {
@@ -190,16 +203,33 @@ public class DynamoGeoClient {
         AttributeValue violationCodeAttributeValue = new AttributeValue().withS(violCode);
 
         PutPointRequest putPointRequest = new PutPointRequest(geoPoint, rangeKeyAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("VIOLATION_CATEGORY_CODE", violationCategoryCodeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("CONTAMINANT_CODE", contaminantCodeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("VIOLATION_CODE", violationCodeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_VIOL_CAT, violationCategoryCodeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_CONT_CODE, contaminantCodeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_VIOL_CODE, violationCodeAttributeValue);
 
 
         PutPointResult putPointResult = geoDataManager.putPoint(putPointRequest);
 
         //printPutPointResult(putPointResult, out);
     }
-    //TODO: Make this for water sites!
+
+    public static WaterPin getPoint(GeoPoint point, String UUID){
+        AttributeValue attr= new AttributeValue().withS(UUID);
+        GetPointResult result = geoDataManager.getPoint(new GetPointRequest(point, attr));
+        return new WaterPin(result.getGetItemResult().getItem());
+    }
+
+    public  static List<WaterPin> getRadialPoints(GeoPoint point, double radius){
+       QueryRadiusResult result= geoDataManager.queryRadius(new QueryRadiusRequest(point, radius));
+        List<WaterPin> list = new ArrayList<>();
+        List<Map<String, AttributeValue>> rawList =result.getItem();
+        for (Map<String,AttributeValue> m: rawList) {
+            list.add(new WaterPin(m));
+        }
+        return  list;
+    }
+
+        //TODO: Make this for water sites!
     public static Map<String, AttributeValue> newItem(String name, int year, String rating, String... fans) {
         Map<String, AttributeValue> item = new HashMap<>();
         item.put("name", new AttributeValue(name));
