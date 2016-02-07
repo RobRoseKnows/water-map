@@ -18,14 +18,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.net.*;
 import java.io.*;
-import com.amazonaws.*;
 import com.amazonaws.util.json.*;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.geo.GeoDataManager;
 import com.amazonaws.geo.GeoDataManagerConfiguration;
 import com.amazonaws.geo.model.GeoPoint;
@@ -35,24 +33,14 @@ import com.amazonaws.geo.util.GeoTableUtil;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
-import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.DescribeTableRequest;
-import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
-import com.amazonaws.services.dynamodbv2.model.KeyType;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
-import com.amazonaws.services.dynamodbv2.model.PutItemResult;
-import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
-import com.amazonaws.services.dynamodbv2.util.Tables;
 
 /**
  * This sample demonstrates how to perform a few simple operations with the
@@ -111,7 +99,7 @@ public class DatabaseBuilder {
 		init();
 
 		try {
-			String tableName = "water-safe-location-table";
+			String tableName = "geo-test";
 			config = new GeoDataManagerConfiguration(dynamoDB, tableName);
 			geoDataManager = new GeoDataManager(config);
 			// Create table if it does not exist yet
