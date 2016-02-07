@@ -23,6 +23,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,27 +56,14 @@ import com.amazonaws.services.dynamodbv2.util.Tables;
 
 import io.robrose.hop.watermap.aws.util.Constants;
 import io.robrose.hop.watermap.aws.util.WaterPin;
-/**
- * This sample demonstrates how to perform a few simple operations with the
- * Amazon DynamoDB service.
- */
+
 public class DynamoGeoClient {
     private static GeoDataManagerConfiguration config;
     private static GeoDataManager geoDataManager;
-    private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
-    private static String secretKey = "YpwBdGgvn6cBR6RTHTCoZb3FlCAf7JRgF8arwV33";
-    /*
-     * Before running the code:
-     *      Fill in your AWS access credentials in the provided credentials
-     *      file template, and be sure to move the file to the default location
-     *      (C:\\Users\\Robert\\.aws\\credentials) where the sample code will load the
-     *      credentials from.
-     *      https://console.aws.amazon.com/iam/home?#security_credential
-     *
-     * WARNING:
-     *      To avoid accidental leakage of your credentials, DO NOT keep
-     *      the credentials file in your source directory.
-     */
+    private File rootkey = new File("");
+    private static String accessKey = keys.AccessKey;
+    private static String secretKey = keys.SecretKey;
+
 
     static AmazonDynamoDBClient dynamoDB;
 
