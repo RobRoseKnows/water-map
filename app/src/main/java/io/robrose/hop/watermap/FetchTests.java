@@ -23,6 +23,7 @@ public class FetchTests {
     }
 
     public List<WaterPin> radiusSearch(double lat, double lng, double radius) {
+        DynamoGeoClient.init();
         GeoPoint geoPoint = new GeoPoint(lat, lng);
         List<WaterPin> pins = DynamoGeoClient.getRadialPoints(geoPoint, radius);
         return pins;

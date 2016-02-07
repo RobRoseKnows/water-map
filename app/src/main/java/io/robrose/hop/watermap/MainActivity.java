@@ -12,11 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 //import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 //import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.robrose.hop.watermap.aws.util.WaterPin;
 
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 29;
+    private final float ZOOM_LEVEL = 25;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -134,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        ButterKnife.bind(this);
     }
 
     protected void onStart() {
@@ -146,7 +151,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onStop();
     }
 
-    @OnClick(R.id.my_location_fab) void onClickMyLocationFab() {
+    @OnClick(R.id.my_location_fab)
+    public void onClickMyLocationFab(FloatingActionButton fab) {
+        Log.v(LOG_TAG, "Click FAB");
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Utility.permissionRationaleAndRequest(this,
@@ -158,11 +165,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    @OnClick(R.id.add_point_fab) void onClickAddPointFab() {
+    @OnClick(R.id.add_point_fab)
+    public void onClickAddPointFab(FloatingActionButton fab) {
 
     }
 
-    @OnClick(R.id.footer_name_bar) void onClickFooterNameBar() {
+    @OnClick(R.id.footer_name_bar)
+    public void onClickFooterNameBar(FrameLayout frameLayout) {
         Log.v(LOG_TAG, "Footername Bar Clicked.");
         if(!focus.equals(lastLocationMarker)) {
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
