@@ -1,6 +1,7 @@
 package io.robrose.hop.watermap;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.amazonaws.geo.model.GeoPoint;
 
@@ -26,6 +27,7 @@ public class FetchTests {
         DynamoGeoClient.init();
         GeoPoint geoPoint = new GeoPoint(lat, lng);
         List<WaterPin> pins = DynamoGeoClient.getRadialPoints(geoPoint, radius);
+        Log.v("Fetcher", pins.toString());
         return pins;
     }
 }

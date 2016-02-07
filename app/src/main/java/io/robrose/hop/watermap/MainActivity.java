@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.os.StrictMode;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 //import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.amazonaws.geo.model.GeoPoint;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,6 +22,7 @@ import com.google.android.gms.location.LocationServices;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 20;
+    private final float ZOOM_LEVEL = 10;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ArrayList<WaterPin> pins;
     private ArrayList<Marker> markers;
     private int pinSelected = -1;
+    private boolean queried = false;
 
     // Holds where the map is currently centered.
     private Marker focus;
@@ -65,8 +69,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * then creates markers for each of the pins.
      */
     private void populateMarkers() {
-        getPinGroups(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 50000);
+        markers = new ArrayList<Marker>();
+        queried = true;
+        getPinGroups(44.9337, -88.9761, 5000);
         for(int i = 0; i < pins.size(); i++) {
+            Log.v(LOG_TAG, "Yo. Added pin.");
             WaterPin onWaterPin = pins.get(i);
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(new LatLng(onWaterPin.lat, onWaterPin.lng))
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * This method refreshes the current focus of the camera to the last known location of the user.
      */
     private void refreshLastLocation() {
-        LatLng home = new LatLng(48.4832, 108.7220);
+        LatLng home = new LatLng(44.9337, -88.9761);
         refreshLastLocation(home);
 //        pinSelected = -1;
 //        LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
@@ -121,7 +128,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setContentView(R.layout.activity_main);
+
 
         //robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
 
@@ -167,11 +179,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    @OnClick(R.id.add_point_fab)
-    public void onClickAddPointFab(FloatingActionButton fab) {
-
-    }
-
     @OnClick(R.id.footer_name_bar)
     public void onClickFooterNameBar(FrameLayout frameLayout) {
         Log.v(LOG_TAG, "Footername Bar Clicked.");
@@ -180,7 +187,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             intent.putExtra(Utility.BUNDLE_PIN, pins.get(pinSelected));
             startActivity(intent);
         } else {
-            populateMarkers();
+            if(!queried)
+                populateMarkers();
         }
     }
 
@@ -211,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             refreshLastLocation();
         } else {
-            home = new LatLng(48.4832, 108.7220);
+            home = new LatLng(47.3516, -94.6118);
             refreshLastLocation(home);
             mMap.setOnMarkerClickListener(this);
         }
