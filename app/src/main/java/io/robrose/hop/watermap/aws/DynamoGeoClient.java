@@ -195,20 +195,17 @@ public class DynamoGeoClient {
             System.out.println("Error Message: " + ace.getMessage());
         }
     }
-    private static void putPoint(String violCatCode, String contamCode, String violCode, double lat, double lng)  {
-        GeoPoint geoPoint = new GeoPoint(lat, lng);
+    private static void userPutPoint(String violCatCode, String contamCode, String violCode, double lat, double lng)  {
+        GeoPoint userGeoPoint = new GeoPoint(lat, lng);//Get location?
         AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
-        AttributeValue violationCategoryCodeAttributeValue = new AttributeValue().withS(violCatCode);
-        AttributeValue contaminantCodeAttributeValue = new AttributeValue().withS(contamCode);
-        AttributeValue violationCodeAttributeValue = new AttributeValue().withS(violCode);
+        AttributeValue testTypeAttributeValue = new AttributeValue().withS(testTypeStr);
+        AttributeValue testResultAttributeValue = new AttributeValue().withS(testResultStr);
 
-        PutPointRequest putPointRequest = new PutPointRequest(geoPoint, rangeKeyAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_VIOL_CAT, violationCategoryCodeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_CONT_CODE, contaminantCodeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_VIOL_CODE, violationCodeAttributeValue);
+        PutPointRequest putPointRequest = new PutPointRequest(userGeoPoint, rangeKeyAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry("userTestType", testTypeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry("userTestResult", testResultAttributeValue);
 
-
-        PutPointResult putPointResult = geoDataManager.putPoint(putPointRequest);
+        PutPointResult putPointResult = userGeoDataManager.putPoint(putPointRequest);
 
         //printPutPointResult(putPointResult, out);
     }
@@ -227,17 +224,6 @@ public class DynamoGeoClient {
             list.add(new WaterPin(m));
         }
         return  list;
-    }
-
-        //TODO: Make this for water sites!
-    public static Map<String, AttributeValue> newItem(String name, int year, String rating, String... fans) {
-        Map<String, AttributeValue> item = new HashMap<>();
-        item.put("name", new AttributeValue(name));
-        item.put("year", new AttributeValue().withN(Integer.toString(year)));
-        item.put("rating", new AttributeValue(rating));
-        item.put("fans", new AttributeValue().withSS(fans));
-
-        return item;
     }
 
 }
