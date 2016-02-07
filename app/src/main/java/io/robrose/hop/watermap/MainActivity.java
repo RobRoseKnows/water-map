@@ -8,6 +8,7 @@ import android.location.Location;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 //import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -35,11 +36,11 @@ import butterknife.OnClick;
 import io.robrose.hop.watermap.aws.util.PinGroup;
 import io.robrose.hop.watermap.aws.util.WaterPin;
 
-public class MainActivity extends ActionBarActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 30;
+    private final float ZOOM_LEVEL = 29;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -47,7 +48,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     private SupportMapFragment mMapFragment;
 
     // Holds all the pins by zipcode.
-    private ArrayList<PinGroup> pins;
+    private ArrayList<WaterPin> pins;
     private ArrayList<Marker> markers;
     private int pinSelected = -1;
 
@@ -57,8 +58,20 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
     @Bind(R.id.footer_name_textview) TextView footerNameTextView;
 
+    /**
+     * This method takes the current location and queries all the points within a 50km radius. It
+     * then creates markers for each of the pins.
+     */
     private void populateMarkers() {
         getPinGroups(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 50000);
+        for(int i = 0; i < pins.size(); i++) {
+            WaterPin onWaterPin = pins.get(i);
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(new LatLng(onWaterPin.lat, onWaterPin.lng))
+                    .title(onWaterPin.name);
+            Marker marker = mMap.addMarker(markerOptions);
+            markers.add(marker);
+        }
     }
 
     /**
@@ -70,8 +83,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
      */
     private void getPinGroups(double lat, double lng, double radius) {
         FetchTests fetcher = new FetchTests(getApplicationContext());
-        List<WaterPin> pins = fetcher.radiusSearch(lat, lng, radius);
-        this.pins = (ArrayList) fetcher.processList(pins);
+        this.pins = (ArrayList) fetcher.radiusSearch(lat, lng, radius);
     }
 
     /**
@@ -152,6 +164,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     }
 
     @OnClick(R.id.footer_name_bar) void onClickFooterNameBar() {
+        Log.v(LOG_TAG, "Footername Bar Clicked.");
         if(!focus.equals(lastLocationMarker)) {
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
             intent.putExtra(Utility.BUNDLE_GROUP_NUMBER, pinSelected); // TODO write code to keep track of what we're on
@@ -249,6 +262,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        Log.v(LOG_TAG, marker.getId());
         if(marker.equals(focus)) {
             //TODO Figure out what it does when double click
         } else if(marker.equals(lastLocationMarker)) {
@@ -269,7 +283,21 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         return true;
     }
 
-    public PinGroup getSpecificPinGroup(int i) {
+    public WaterPin getSpecificPinGroup(int i) {
         return pins.get(i);
+    }
+
+    public Location getmLastLocation() {
+        if(mGoogleApiClient.hasConnectedApi(LocationServices.API)) {
+            if(ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Utility.permissionRationaleAndRequest(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        PERMISSION_REQUEST_LAST_LOCATION);
+            } else {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            }
+        }
+        return mLastLocation;
     }
 }
