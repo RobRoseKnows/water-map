@@ -83,9 +83,7 @@
     <string name="title_activity_notes">NotesActivity</string>
 
     <!-- Strings for Test Input Form -->
-    <string name="feedbacktitle">Water Test Input Form</string>
-    <string name="feedbackname">Your Name</string>
-    <string name="feedbackemail">Your Email</string>
+    <string name="feedbacktitle">Select Your Test</string>
     <string name="feedbacktitlePb">Lead</string>
     <string name="feedbacktitleCl">Chlorine</string>
     <string name="feedbacktitlepH">pH</string>
@@ -95,6 +93,16 @@
     <string name="feedbacktitleNiti">Nitrites</string>
     <string name="feedbacktitleNita">Nitrates</string>
     <string name="feedbackbutton">Send Form</string>
+    <!--For the Spinner Control Pick Test-->
+    <string name="feedbacktypepick">Choose a Test</string>
+    <string name="feedbacktypepick1">Lead</string>
+    <string name="feedbacktypepick2">pH</string>
+    <string name="feedbacktypepick3">Pesticides</string>
+    <string name="feedbacktypepick4">Hardness</string>
+    <string name="feedbacktypepick5">Bacteria</string>
+    <string name="feedbacktypepick6">Nitrites</string>
+    <string name="feedbacktypepick7">Nitrates</string>
+    <string name="feedbackbuttonnext">Next</string>
     <!--For the Spinner Control pH-->
     <string name="feedbacktypepH">Enter pH</string>
     <string name="feedbacktypepH1">6</string>
@@ -105,7 +113,7 @@
     <string name="feedbacktypepH6">8.5</string>
     <string name="feedbacktypepH7">10</string>
     <!--For the Spinner Control pB-->
-    <string name="feedbacktypePb">Enter presence of lead.</string>
+    <string name="feedbacktypePb">Was the Test Positive or Negative.</string>
     <string name="feedbacktypePb1">Positive</string>
     <string name="feedbacktypePb2">Negative</string>
     <!--For the Spinner Control Cl-->
@@ -147,5 +155,6 @@
     <string name="feedbacktypeNiti5">1.5ppm</string>
     <string name="feedbacktypeNiti6">3ppm</string>
     <string name="feedbacktypeNiti7">10ppm</string>
+    <string name="title_activity_lead2">LeadActivity2</string>
 
 </resources>

@@ -195,8 +195,9 @@ public class DynamoGeoClient {
             System.out.println("Error Message: " + ace.getMessage());
         }
     }
+    /*
     private static void userPutPoint(String violCatCode, String contamCode, String violCode, double lat, double lng)  {
-        GeoPoint userGeoPoint = new GeoPoint(lat, lng);//Get location?
+        GeoPoint userGeoPoint = new GeoPoint(mLastLocation.latitude, mLastLocation.longitude);//mLastLocation is a lat and long
         AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
         AttributeValue testTypeAttributeValue = new AttributeValue().withS(testTypeStr);
         AttributeValue testResultAttributeValue = new AttributeValue().withS(testResultStr);
@@ -208,12 +209,23 @@ public class DynamoGeoClient {
         PutPointResult putPointResult = userGeoDataManager.putPoint(putPointRequest);
 
         //printPutPointResult(putPointResult, out);
-    }
+    }*/
 
     public static WaterPin getPoint(GeoPoint point, String UUID){
         AttributeValue attr= new AttributeValue().withS(UUID);
         GetPointResult result = geoDataManager.getPoint(new GetPointRequest(point, attr));
         return new WaterPin(result.getGetItemResult().getItem());
+    }
+    public static void insertPoint(double latitude, double longitude, String testType, String testResult){
+        GeoPoint geoPoint = new GeoPoint(latitude, latitude);
+        AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
+        AttributeValue testTypeAttributeValue = new AttributeValue().withS(testType);
+        AttributeValue testResultAttributeValue = new AttributeValue().withS(testResult);
+
+        PutPointRequest putPointRequest = new PutPointRequest(geoPoint, rangeKeyAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry("TEST_TYPE", testTypeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry("TEST_RESULT", testResultAttributeValue);
+        PutPointResult putPointResult = geoDataManager.putPoint(putPointRequest);
     }
 
     public  static List<WaterPin> getRadialPoints(GeoPoint point, double radius){

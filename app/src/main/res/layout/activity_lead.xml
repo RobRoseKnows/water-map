@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?><!-- http://code.tutsplus.com/tutorials/android-essentials-creating-simple-user-forms-mobile-1758 -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal|top">
+
+        <TextView
+            android:id="@+id/TextViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feedbacktypePb"
+            android:textSize="10pt"></TextView>
+
+
+        <Button
+            android:id="@+id/ButtonLeadPos"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sendLeadMessPos"
+            android:text="Positive"></Button>
+
+        <!--Next button-->
+        <Button
+            android:id="@+id/ButtonLeadNeg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sendLeadMessNeg"
+            android:text="Negative"/>
+        <ImageView
+            android:id="@+id/leadViewimg"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@mipmap/ic_launcherlead" />
+
+
+    </LinearLayout>
+</FrameLayout>

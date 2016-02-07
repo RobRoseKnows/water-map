@@ -1,174 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- http://code.tutsplus.com/tutorials/android-essentials-creating-simple-user-forms-mobile-1758 -->
-<ScrollView
+<?xml version="1.0" encoding="utf-8"?><!-- http://code.tutsplus.com/tutorials/android-essentials-creating-simple-user-forms-mobile-1758 -->
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="vertical">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:layout_height="fill_parent">
+        android:layout_gravity="center_horizontal|top">
 
         <TextView
             android:id="@+id/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feedbacktitle"
-            android:textSize="10pt">
-        </TextView>
-
-        <!--Get user name-->
-        <EditText
-            android:id="@+id/EditTextName"
-            android:layout_height="wrap_content"
-            android:hint="@string/feedbackname"
-            android:inputType="textPersonName"
-            android:layout_width="fill_parent">
-        </EditText>
-
-        <!--Get user email-->
-        <EditText
-            android:id="@+id/EditTextEmail"
-            android:layout_height="wrap_content"
-            android:hint="@string/feedbackemail"
-            android:inputType="textEmailAddress"
-            android:layout_width="fill_parent">
-        </EditText>
-
-        <!--Tester Options-->
-            <!--pH-->
-        <TextView
-            android:id="@+id/TextViewTitlepH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitlepH"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypepH"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypepH"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistpH">
-        </Spinner>
-        <!--Pb-->
-        <TextView
-            android:id="@+id/TextViewTitlePb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitlePb"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypePb"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypePb"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistPb">
-        </Spinner>
-        <!--Cl-->
-        <TextView
-            android:id="@+id/TextViewTitleCl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitleCl"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypeCl"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypeCl"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistCl">
-        </Spinner>
-        <!--Pesticides-->
-        <TextView
-            android:id="@+id/TextViewTitlePest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitlePest"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypePest"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypePest"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistPest">
-        </Spinner>
-        <!--Hardness-->
-        <TextView
-            android:id="@+id/TextViewTitleHard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitleHard"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypeHard"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypeHard"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistHard">
-        </Spinner>
-        <!--Bacteria-->
-        <TextView
-            android:id="@+id/TextViewTitleBact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitleBact"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypeBact"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypeBact"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistBact">
-        </Spinner>
-        <!--Nitrites-->
-        <TextView
-            android:id="@+id/TextViewTitleNiti"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitleNiti"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypeNiti"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypeNiti"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistNiti">
-        </Spinner>
-        <!--Nitrates-->
-        <TextView
-            android:id="@+id/TextViewTitleNita"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feedbacktitleNita"
-            android:textSize="10pt">
-        </TextView>
-        <Spinner
-            android:id="@+id/SpinnerFeedbackTypeNita"
-            android:layout_height="wrap_content"
-            android:prompt="@string/feedbacktypeNita"
-            android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelistNita">
-        </Spinner>
+            android:textSize="10pt"></TextView>
 
 
-        <!--Finish button-->
         <Button
-            android:id="@+id/ButtonSendFeedback"
+            android:id="@+id/ButtonLead"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feedbackbutton"
+            android:onClick="tolead"
+            android:text="Lead"></Button>
+
+        <!--Next button-->
+        <Button
+            android:id="@+id/ButtonNitrites"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="tonitrates"
+            android:text="Nitrites"></Button>
+        <Button
+            android:id="@+id/ButtonNitrates"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="tonitrates"
+            android:text="Nitrates"></Button>
+        <Button
+            android:id="@+id/Buttonph"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="toph"
+            android:text="pH"></Button>
+        <Button
+            android:id="@+id/Buttonpesticides"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="topesticides"
+            android:text="Pesticides"></Button>
+        <Button
+            android:id="@+id/Buttonbacteria"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="tobacteria"
+            android:text="bacteria"></Button>
+        <Button
+            android:id="@+id/Buttonchlorine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="tochlorine"
+            android:text="chlorine"></Button>
+        <Button
+            android:id="@+id/Buttonhardness"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:onClick="sendFeedback"
-            android:layout_width="fill_parent">
-        </Button>
+            android:text="hardness"></Button>
 
     </LinearLayout>
-</ScrollView>
+</FrameLayout>
