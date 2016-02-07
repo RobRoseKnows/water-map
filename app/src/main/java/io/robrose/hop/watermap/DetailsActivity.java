@@ -7,14 +7,16 @@ import android.os.Bundle;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.robrose.hop.watermap.aws.util.PinGroup;
 
 public class DetailsActivity extends ActionBarActivity {
-    //private Typeface robotoBold;
+    private PinGroup mPinGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        
 
         //robotoBold = Typeface.createFromAsset(getAssets(), "Roboto-Bold.tff");
 

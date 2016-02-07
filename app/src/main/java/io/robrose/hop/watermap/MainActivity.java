@@ -25,27 +25,54 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.robrose.hop.watermap.aws.util.PinGroup;
+import io.robrose.hop.watermap.aws.util.WaterPin;
 
 public class MainActivity extends ActionBarActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 3;
+    private final float ZOOM_LEVEL = 30;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private SupportMapFragment mMapFragment;
 
-    private Map<String, String> data;
-    //private Typeface robotoBold;
+    // Holds all the pins by zipcode.
+    private ArrayList<PinGroup> pins;
+    private ArrayList<Marker> markers;
+
+    // Holds where the map is currently centered.
+    private Marker focus;
+    private Marker lastLocationMarker;
 
     @Bind(R.id.footer_name_textview) TextView footerNameTextView;
 
+    private void populateMarkers() {
+
+    }
+
+    private void getPinGroups(double lat, double lng, double radius) {
+        FetchTests fetcher = new FetchTests(getApplicationContext());
+        List<WaterPin> pins = fetcher.radiusSearch(lat, lng, radius);
+        this.pins = (ArrayList) fetcher.processList(pins);
+    }
+
+    private void refreshLastLocation() {
+        LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        MarkerOptions mark = new MarkerOptions()
+                .position(home)
+                .title("You!");
+        lastLocationMarker = mMap.addMarker(mark);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark.getPosition(), ZOOM_LEVEL));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +138,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        LatLng home;
 
         if(mGoogleApiClient.hasConnectedApi(LocationServices.API)) {
             if(ContextCompat.checkSelfPermission(this,
@@ -122,16 +150,16 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             }
 
-            LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions()
-                    .position(home)
-                    .title("You!"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
+            refreshLastLocation();
         }
 
-        LatLng home = new LatLng(37.4184, 122.0880);
-        mMap.addMarker(new MarkerOptions().position(home).title("Google!"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
+        home = new LatLng(37.4184, 122.0880);
+        MarkerOptions mark = new MarkerOptions()
+                .position(home)
+                .title("You!");
+        lastLocationMarker = mMap.addMarker(mark);
+        focus = lastLocationMarker;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark.getPosition(), ZOOM_LEVEL));
         mMap.setOnMarkerClickListener(this);
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
@@ -155,9 +183,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             }
 
-            LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(home).title("You!"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, ZOOM_LEVEL));
+            refreshLastLocation();
         }
     }
 
@@ -180,6 +206,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                     if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         // TODO Instruct user on how to turn on GPS.
                         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                        refreshLastLocation();
                     } else {
                         Utility.showDialogText(R.string.location_permission_denied, this);
                     }
@@ -194,6 +221,13 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return false;
+        if(marker.equals(focus)) {
+            //TODO Figure out what it does when double click
+        }
+        return true;
+    }
+
+    public PinGroup getSpecificPinGroup(int i) {
+        return pins.get(i);
     }
 }

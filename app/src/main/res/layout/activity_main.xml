@@ -53,7 +53,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:textColor="#FFFFFF"
-            android:text="Location"
+            android:text="Search"
             android:textSize="24sp"
             />
     </FrameLayout>
