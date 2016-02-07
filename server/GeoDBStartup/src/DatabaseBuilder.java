@@ -18,14 +18,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.net.*;
 import java.io.*;
-import com.amazonaws.*;
 import com.amazonaws.util.json.*;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.geo.GeoDataManager;
 import com.amazonaws.geo.GeoDataManagerConfiguration;
 import com.amazonaws.geo.model.GeoPoint;
@@ -35,30 +33,20 @@ import com.amazonaws.geo.util.GeoTableUtil;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
-import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.DescribeTableRequest;
-import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
-import com.amazonaws.services.dynamodbv2.model.KeyType;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
-import com.amazonaws.services.dynamodbv2.model.PutItemResult;
-import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
-import com.amazonaws.services.dynamodbv2.util.Tables;
 
 /**
  * This sample demonstrates how to perform a few simple operations with the
  * Amazon DynamoDB service.
  */
-public class AmazonDynamoDBSample {
+public class DatabaseBuilder {
 	private static GeoDataManagerConfiguration config;
 	private static GeoDataManager geoDataManager;
 	/*
@@ -75,6 +63,7 @@ public class AmazonDynamoDBSample {
 	static AmazonDynamoDBClient dynamoDB;
 	private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
 	private static String secretKey = "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";
+	 
 
 	/**
 	 * The only information needed to create a client are security credentials
@@ -110,7 +99,7 @@ public class AmazonDynamoDBSample {
 		init();
 
 		try {
-			String tableName = "water-safe-locations-table";
+			String tableName = "geo-test";
 			config = new GeoDataManagerConfiguration(dynamoDB, tableName);
 			geoDataManager = new GeoDataManager(config);
 			// Create table if it does not exist yet
@@ -126,7 +115,7 @@ public class AmazonDynamoDBSample {
 				TableUtils.waitUntilActive(dynamoDB, tableName);
 			} catch (AmazonClientException e) {
 				System.out.println("Table " + tableName + " is already ACTIVE");
-
+				System.out.println(e);
 			}
 
 			// Describe our new table
@@ -171,9 +160,9 @@ public class AmazonDynamoDBSample {
 	private static void getEPAData(String url1, String url2) throws Exception {
 		// TODO take data from epa api and read into json
 
-		for (int i = 0; i < 2700000; i += 50){
+		for (int i = 0; i < 2700000; i += 100){
 			System.out.println("Test");
-			String sapiURL = url1 + Integer.toString(i) + ":" + Integer.toString(i +49) + url2;
+			String sapiURL = url1 + Integer.toString(i) + ":" + Integer.toString(i +99) + url2;
 			URL apiURL = new URL(sapiURL);
 			URLConnection con = apiURL.openConnection();
 			try {
