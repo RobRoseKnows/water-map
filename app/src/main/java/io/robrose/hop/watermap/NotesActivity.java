@@ -47,7 +47,21 @@ public class NotesActivity extends AppCompatActivity {
 Dialog mDialog = new Dialog(context,styleId);
 mDialog.applyStyle(styleId) //need find styleId
     .title("???The selected test field")
-    //Add scroll option
+    //Add scroll option to form
+//Text form
+//com.rey.material.widget.EditText
+//et_supportMode should be none
+
+//helper looks like title but under the input
+//the title is on the line where input is and is erased
+//a label puts the title just above the input area when typing
+//et_labelEnable puts floating label
+//et_helper makes helper text
+//et_supportSingleLine makes helper text one line
+
+//maybe? answerView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+
 
     .positiveAction("OK")
     .negatieAction("CANCEL")
@@ -140,7 +154,7 @@ public void onClick(View view){
         }
         }
         });
-        
+
 //Treatment tablets from http://www.amazon.com/Potable-Aqua-Water-Treatment-Tablets/dp/B001949TKS/ref=sr_1_2?ie=UTF8&qid=1454777742&sr=8-2&keywords=water+purification+tablets
         String asin = "B001949TKS";
         openProductPageButton = (Button)findViewById(R.id.open_product_page_button);
@@ -157,3 +171,40 @@ public void onClick(View view){
         }
         }
         });
+
+//This is a template layout for something similar to the Google Maps app.
+
+//add to build.gradle
+dependences{
+        repositories{
+            mavenCentral()
+        }
+        compile 'com.sothree.slidinguppanel:library:3.2.1'
+        }
+//Usage
+//•Include  com.sothree.slidinguppanel.SlidingUpPanelLayout  as the root element in your activity layout.
+//set gravity to bottom, maybe layout_gravity
+//child for main layout and a child for sliding up panel layout
+//main has width and height to match_parent
+//sliding has witdh to match_parent and height to desired by using setAnchorPoint to middle of screen or setPanelHeight method or umanoPanelHeight attribute
+//define a layout_weight for the sliding view.
+//by default the whole panel will act as a drag region and will intercept clicks and drag events.
+//can adjust by using setDragView method or unmanoDragView attribute
+//default pushed up the main content. can set to overlay by setOverlayed method or umanoOverlay attribute
+
+//
+//
+
+
+//Text form
+//com.rey.material.widget.EditText
+//et_supportMode should be none
+
+//helper looks like title but under the input
+//the title is on the line where input is and is erased
+//a label puts the title just above the input area when typing
+//et_labelEnable puts floating label
+//et_helper makes helper text
+//et_supportSingleLine makes helper text one line
+
+

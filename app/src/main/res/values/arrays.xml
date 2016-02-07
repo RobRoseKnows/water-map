@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feedbacktypelistpH">
+        <item>@string/feedbacktypepH1</item>
+        <item>@string/feedbacktypepH2</item>
+        <item>@string/feedbacktypepH3</item>
+        <item>@string/feedbacktypepH4</item>
+        <item>@string/feedbacktypepH5</item>
+        <item>@string/feedbacktypepH6</item>
+        <item>@string/feedbacktypepH7</item>
+    </string-array>
+
+
+
+
+
+</resources>

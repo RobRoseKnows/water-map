@@ -81,4 +81,27 @@
     <string name="internet_permission_denied">Looks like there\'s not much more we can do.</string>
     <string name="location_permission_denied">Manual location input will be added in a later version.</string>
     <string name="title_activity_notes">NotesActivity</string>
+
+    <!-- Strings for Test Input Form -->
+    <string name="feedbacktitle">Water Test Input Form</string>
+    <string name="feedbackname">Your Name</string>
+    <string name="feedbackemail">Your Email</string>
+    <string name="feedbacktitle2">Lead</string>
+    <string name="feedbacktitle3">Chlorine</string>
+    <string name="feedbacktitlepH">pH</string>
+    <string name="feedbacktitle5">Pesticides</string>
+    <string name="feedbacktitle6">Hardness</string>
+    <string name="feedbacktitle7">Bacteria</string>
+    <string name="feedbacktitle8">Nitrites/Nitrates</string>
+    <string name="feedbackbutton">Send Form</string>
+    <!--For the Spinner Control-->
+    <string name="feedbacktypepH">Enter pH</string>
+    <string name="feedbacktypepH1">1</string>
+    <string name="feedbacktypepH2">2</string>
+    <string name="feedbacktypepH3">3</string>
+    <string name="feedbacktypepH4">4</string>
+    <string name="feedbacktypepH5">5</string>
+    <string name="feedbacktypepH6">6</string>
+    <string name="feedbacktypepH7">7</string>
+
 </resources>
