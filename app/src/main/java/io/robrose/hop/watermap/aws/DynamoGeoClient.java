@@ -116,7 +116,7 @@ public class DynamoGeoClient {
     }
 
     public static void main(String[] args) {
-        init();
+        ;
 
         try {
             String tableName = "geo-test";
