@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public class WaterPin implements Parcelable{
 
+    private static final double PIN_VARIANCE  = .01;
+
     public String uuid;
     public String name;
 
@@ -23,7 +25,9 @@ public class WaterPin implements Parcelable{
     public boolean majorViolation;
 
     public double lat;
+    public double latOriginal;
     public double lng;
+    public double lngOriginal;
     public GeoPoint geoPoint;
 
     public String addressLineOne;
@@ -48,6 +52,33 @@ public class WaterPin implements Parcelable{
         name = addressLineOne + " " + cityName + ", " + stateId;
     }
 
+    public WaterPin(String addressLineOne,
+                    String cityName,
+                    String stateId,
+                    boolean majorRisk,
+                    String contamCode,
+                    int zip,
+                    double lat,
+                    double lng) {
+        this.addressLineOne = addressLineOne;
+        this.cityName = cityName;
+        this.stateId = stateId;
+        this.majorRisk = majorRisk;
+        this.contamCode = contamCode;
+        this.zip = zip;
+        this.lat = lat;
+        this.lng = lng;
+
+        this.uuid = "";
+        this.name =  addressLineOne + " " + cityName + ", " + stateId;;
+
+        this.violCatCode = "";
+        this.violCode = "pi";
+        this.majorRisk = false;
+
+        this.addressLineTwo = "";
+    }
+
     public WaterPin(Parcel in) {
         String[] data = new String[14];
 
@@ -62,6 +93,8 @@ public class WaterPin implements Parcelable{
         this.majorViolation = Boolean.parseBoolean(data[6]);
 
         this.lat = Double.parseDouble(data[7]);
+//        this.lat = (this.latOriginal - PIN_VARIANCE/2) + (Math.random() * PIN_VARIANCE);
+
         this.lng = Double.parseDouble(data[8]);
 
         this.addressLineOne = data[9];

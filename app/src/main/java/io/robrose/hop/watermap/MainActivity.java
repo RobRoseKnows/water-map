@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // Holds all the pins by zipcode.
     private ArrayList<WaterPin> pins;
-    private ArrayList<Marker> markers;
+    private ArrayList<Marker> markers = new ArrayList<Marker>();
     private int pinSelected = -1;
     private boolean queried = false;
 
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * then creates markers for each of the pins.
      */
     private void populateMarkers() {
-        markers = new ArrayList<Marker>();
         queried = true;
         getPinGroups(44.9337, -88.9761, 5000);
         for(int i = 0; i < pins.size(); i++) {
@@ -168,15 +167,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.my_location_fab)
     public void onClickMyLocationFab(FloatingActionButton fab) {
         Log.v(LOG_TAG, "Click FAB");
-        if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Utility.permissionRationaleAndRequest(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    PERMISSION_REQUEST_LAST_LOCATION);
-        } else {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            refreshLastLocation();
-        }
+//        if(ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            Utility.permissionRationaleAndRequest(this,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION,
+//                    PERMISSION_REQUEST_LAST_LOCATION);
+//        } else {
+//            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//            refreshLastLocation();
+//        }
+        WaterPin wp = new WaterPin("East Capitol St NE & First St SE",
+                "Washington",
+                "DC",
+                true,
+                "3000",
+                20004,
+                38.8899,
+                -77.0090);
+        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+        intent.putExtra(Utility.BUNDLE_PIN, wp);
+        startActivity(intent);
     }
 
     @OnClick(R.id.footer_name_bar)

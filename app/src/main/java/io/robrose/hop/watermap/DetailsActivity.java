@@ -36,8 +36,7 @@ public class DetailsActivity extends ActionBarActivity implements OnMapReadyCall
     ImageView hazardImageView;
     @Bind(R.id.explain_text)
     TextView explainTextView;
-    @Bind(R.id.hazard_text)
-    TextView hazardTextView;
+    @Bind(R.id.hazard_text) TextView hazardTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
