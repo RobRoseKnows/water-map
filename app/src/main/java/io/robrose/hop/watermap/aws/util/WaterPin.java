@@ -20,6 +20,6 @@ public class WaterPin {
         public GeoPoint geoPoint;
 
         public WaterPin(Map<String,AttributeValue> map){
-
+            map.get("");
         }
 }
