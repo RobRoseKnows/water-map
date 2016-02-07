@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 public class Utility {
     public static final int PERMISSION_REQUEST_LAST_LOCATION = 2;
     public static final String BUNDLE_GROUP_NUMBER = "num";
+    public static final String BUNDLE_PIN = "pin";
 
     /**
      * This function shows text in a dialog box from a given string resId and the app context.
