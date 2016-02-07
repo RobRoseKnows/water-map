@@ -62,8 +62,8 @@ import io.robrose.hop.watermap.aws.util.WaterPin;
 public class DynamoGeoClient {
     private static GeoDataManagerConfiguration config;
     private static GeoDataManager geoDataManager;
-    private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
-    private static String secretKey = "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";
+    private static String accessKey = Secret.AWSAccessKeyId;
+    private static String secretKey = Secret.AWSSecretKey;
     private static boolean initialized = false;
     private static String tableName = "water-safe-locations-table";
 

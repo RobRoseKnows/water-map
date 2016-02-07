@@ -1,22 +1,20 @@
 <resources>
     <string name="app_name">Water Map</string>
     <string name="title_activity_main">Main Map</string>
-    <string name="title_activity_login">Sign in</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="no_explanation">¯\\\_(ツ)_/¯</string>
+    <string name="inorganic_explanaton">The water system in your location has an inorganic chemical contamination that exceeds the maximum safety threshold. Examples of inorganic contamination include arsenic, mercury, nitrates and nitrites. Make sure your water filter is certified to remove these compounds, or purchase filtered water.
+</string>
+    <string name="organic_explanation">The water system in your location has an organic chemical contamination that exceeds the maximum safety threshold. Examples of organic contaminants include volatile organic chemicals like benzenes, petroleum products such as styrene, haloacetic acids (HAA5). Make sure your water filter is certified to remove these compounds, or purchase filtered water.
+</string>
+    <string name="biohazard_explanation">There are microbiological contaminants in your water. Common examples include e. Coli and giardia. Boiling water for 10 minutes helps kill most harmful organisms. If you can't boil the water, consider iodine tablets, or non-iodine water purification tablets such as Katadyn Micropur. If using drops or a tablet, read manufacturer instructions and remember to let it sit until it takes effect, which may take several hours.</string>
+    <string name="radiation_explanation">There are radioactive contaminants in the water system in your area. Activated charcoal block filters, or sophisticated pitcher filters like ZeroWater, can help remove some radioactive compounds. Read more about the compounds in your area to learn whether this is an effective treatment.
+In the meantime, drink bottled water.</string>
+    <string name="heavymetal_explanation">There is lead or copper contamination in the water system in your location. Consider using a block carbon water filter. Make sure to replace filters in a timely manner, and that the filter is certified to remove lead. Remember, most pitcher filters do not remove substantial quantities of lead. The only filter certified to do so is ZeroWater.</string>
 
+    <string name="yes_health">The water system in your location has had reporting problems, meaning that our data is not up to date on the quality of the water. This does not mean that the water is unsafe, but you may want to take precautions.</string>
+    <string name="no_health">The EPA has issued an unspecified health violation code in your water system. Please take precautions by filtering your water or purchasing bottled water.</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
