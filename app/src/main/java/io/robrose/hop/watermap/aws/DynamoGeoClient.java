@@ -65,6 +65,7 @@ public class DynamoGeoClient {
     private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
     private static String secretKey = "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";
     private static boolean initialized = false;
+    private static String tableName = "water-safe-locations-table";
 
     /*
      * Before running the code:
@@ -117,6 +118,9 @@ public class DynamoGeoClient {
         dynamoDB = new AmazonDynamoDBClient(credentials);
         Region usEast1 = Region.getRegion(Regions.US_EAST_1);
         dynamoDB.setRegion(usEast1);
+        config = new GeoDataManagerConfiguration(dynamoDB, tableName);
+        geoDataManager = new GeoDataManager(config);
+
 
         initialized = true;
     }
@@ -125,7 +129,6 @@ public class DynamoGeoClient {
         init();
 
         try {
-            String tableName = "water-safe-locations-table";
             config = new GeoDataManagerConfiguration(dynamoDB, tableName);
             geoDataManager = new GeoDataManager(config);
             // Create table if it does not exist yet

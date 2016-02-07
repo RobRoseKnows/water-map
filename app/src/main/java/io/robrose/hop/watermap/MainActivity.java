@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String LOG_TAG = "MainActivity";
     public final int PERMISSION_REQUEST_LAST_LOCATION = Utility.PERMISSION_REQUEST_LAST_LOCATION;
-    private final float ZOOM_LEVEL = 25;
+    private final float ZOOM_LEVEL = 20;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -92,14 +92,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * This method refreshes the current focus of the camera to the last known location of the user.
      */
     private void refreshLastLocation() {
-        pinSelected = -1;
-        LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        MarkerOptions mark = new MarkerOptions()
-                .position(home)
-                .title("You!");
-        lastLocationMarker = mMap.addMarker(mark);
-        focus = lastLocationMarker;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark.getPosition(), ZOOM_LEVEL));
+        LatLng home = new LatLng(48.4832, 108.7220);
+        refreshLastLocation(home);
+//        pinSelected = -1;
+//        LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+//        MarkerOptions mark = new MarkerOptions()
+//                .position(home)
+//                .title("You!");
+//        lastLocationMarker = mMap.addMarker(mark);
+//        focus = lastLocationMarker;
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark.getPosition(), ZOOM_LEVEL));
     }
 
     /**
@@ -209,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             refreshLastLocation();
         } else {
-            home = new LatLng(37.4184, 122.0880);
+            home = new LatLng(48.4832, 108.7220);
             refreshLastLocation(home);
             mMap.setOnMarkerClickListener(this);
         }
