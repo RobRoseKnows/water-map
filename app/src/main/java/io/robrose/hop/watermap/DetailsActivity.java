@@ -16,7 +16,6 @@ public class DetailsActivity extends ActionBarActivity {
     private PinGroup mPinGroup;
     private int groupOn;
 
-    @Bind(R.id.map) SupportMapFragment mMap;
     @Bind(R.id.detail_name_textview) TextView detailName;
 
     @Override
