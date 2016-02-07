@@ -53,6 +53,7 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 
+import io.robrose.hop.watermap.aws.util.Constants;
 import io.robrose.hop.watermap.aws.util.WaterPin;
 /**
  * This sample demonstrates how to perform a few simple operations with the
@@ -196,9 +197,9 @@ public class DynamoGeoClient {
         AttributeValue violationCodeAttributeValue = new AttributeValue().withS(violCode);
 
         PutPointRequest putPointRequest = new PutPointRequest(geoPoint, rangeKeyAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("VIOLATION_CATEGORY_CODE", violationCategoryCodeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("CONTAMINANT_CODE", contaminantCodeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("VIOLATION_CODE", violationCodeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_VIOL_CAT, violationCategoryCodeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_CONT_CODE, contaminantCodeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry(Constants.FIELD_VIOL_CODE, violationCodeAttributeValue);
 
 
         PutPointResult putPointResult = geoDataManager.putPoint(putPointRequest);

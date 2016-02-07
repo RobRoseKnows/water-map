@@ -80,4 +80,72 @@
 
     <string name="internet_permission_denied">Looks like there\'s not much more we can do.</string>
     <string name="location_permission_denied">Manual location input will be added in a later version.</string>
+    <string name="title_activity_notes">NotesActivity</string>
+
+    <!-- Strings for Test Input Form -->
+    <string name="feedbacktitle">Water Test Input Form</string>
+    <string name="feedbackname">Your Name</string>
+    <string name="feedbackemail">Your Email</string>
+    <string name="feedbacktitlePb">Lead</string>
+    <string name="feedbacktitleCl">Chlorine</string>
+    <string name="feedbacktitlepH">pH</string>
+    <string name="feedbacktitlePest">Pesticides</string>
+    <string name="feedbacktitleHard">Hardness</string>
+    <string name="feedbacktitleBact">Bacteria</string>
+    <string name="feedbacktitleNiti">Nitrites</string>
+    <string name="feedbacktitleNita">Nitrates</string>
+    <string name="feedbackbutton">Send Form</string>
+    <!--For the Spinner Control pH-->
+    <string name="feedbacktypepH">Enter pH</string>
+    <string name="feedbacktypepH1">6</string>
+    <string name="feedbacktypepH2">6.5</string>
+    <string name="feedbacktypepH3">7</string>
+    <string name="feedbacktypepH4">7.5</string>
+    <string name="feedbacktypepH5">8</string>
+    <string name="feedbacktypepH6">8.5</string>
+    <string name="feedbacktypepH7">10</string>
+    <!--For the Spinner Control pB-->
+    <string name="feedbacktypePb">Enter presence of lead.</string>
+    <string name="feedbacktypePb1">Positive</string>
+    <string name="feedbacktypePb2">Negative</string>
+    <!--For the Spinner Control Cl-->
+    <string name="feedbacktypeCl">Enter chlorine concentration.</string>
+    <string name="feedbacktypeCl1">0ppm</string>
+    <string name="feedbacktypeCl2">2.0ppm</string>
+    <string name="feedbacktypeCl3">4.0ppm</string>
+    <string name="feedbacktypeCl4">10ppm</string>
+    <!--For the Spinner Control Pesticides-->
+    <string name="feedbacktypePest">Enter presence of pesticides.</string>
+    <string name="feedbacktypePest1">Positive</string>
+    <string name="feedbacktypePest2">Negative</string>
+    <!--For the Spinner Control Hardness-->
+    <string name="feedbacktypeHard">Enter hardness (ppm)</string>
+    <string name="feedbacktypeHard1">0ppm</string>
+    <string name="feedbacktypeHard2">50ppm</string>
+    <string name="feedbacktypeHard3">120ppm</string>
+    <string name="feedbacktypeHard4">250ppm</string>
+    <string name="feedbacktypeHard5">425ppm</string>
+    <!--For the Spinner Control Bacteria-->
+    <string name="feedbacktypeBact">Enter presence of bacteria.</string>
+    <string name="feedbacktypeBact1">Positive</string>
+    <string name="feedbacktypeBact2">Negative</string>
+    <!--For the Spinner Control Nitrates-->
+    <string name="feedbacktypeNita">Enter nitrate concentration.</string>
+    <string name="feedbacktypeNita1">0ppm</string>
+    <string name="feedbacktypeNita2">0.5ppm</string>
+    <string name="feedbacktypeNita3">2ppm</string>
+    <string name="feedbacktypeNita4">5ppm</string>
+    <string name="feedbacktypeNita5">10ppm</string>
+    <string name="feedbacktypeNita6">20ppm</string>
+    <string name="feedbacktypeNita7">50ppm</string>
+    <!--For the Spinner Control Nitrites-->
+    <string name="feedbacktypeNiti">Enter nitrite concentration.</string>
+    <string name="feedbacktypeNiti1">0ppm</string>
+    <string name="feedbacktypeNiti2">0.15ppm</string>
+    <string name="feedbacktypeNiti3">0.3ppm</string>
+    <string name="feedbacktypeNiti4">1ppm</string>
+    <string name="feedbacktypeNiti5">1.5ppm</string>
+    <string name="feedbacktypeNiti6">3ppm</string>
+    <string name="feedbacktypeNiti7">10ppm</string>
+
 </resources>

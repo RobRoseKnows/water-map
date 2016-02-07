@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--pH-->
+    <string-array name="feedbacktypelistpH">
+        <item>@string/feedbacktypepH1</item>
+        <item>@string/feedbacktypepH2</item>
+        <item>@string/feedbacktypepH3</item>
+        <item>@string/feedbacktypepH4</item>
+        <item>@string/feedbacktypepH5</item>
+        <item>@string/feedbacktypepH6</item>
+        <item>@string/feedbacktypepH7</item>
+    </string-array>
+    <!--Pb-->
+    <string-array name="feedbacktypelistPb">
+        <item>@string/feedbacktypePb1</item>
+        <item>@string/feedbacktypePb2</item>
+    </string-array>
+    <!--Cl-->
+    <string-array name="feedbacktypelistCl">
+        <item>@string/feedbacktypeCl1</item>
+        <item>@string/feedbacktypeCl2</item>
+        <item>@string/feedbacktypeCl3</item>
+        <item>@string/feedbacktypeCl4</item>
+    </string-array>
+    <!--Pesticides-->
+    <string-array name="feedbacktypelistPest">
+        <item>@string/feedbacktypePest1</item>
+        <item>@string/feedbacktypePest2</item>
+    </string-array>
+    <!--Hardness-->
+    <string-array name="feedbacktypelistHard">
+        <item>@string/feedbacktypeHard1</item>
+        <item>@string/feedbacktypeHard2</item>
+        <item>@string/feedbacktypeHard3</item>
+        <item>@string/feedbacktypeHard4</item>
+        <item>@string/feedbacktypeHard5</item>
+    </string-array>
+    <!--Bacteria-->
+    <string-array name="feedbacktypelistBact">
+        <item>@string/feedbacktypeBact1</item>
+        <item>@string/feedbacktypeBact2</item>
+    </string-array>
+    <!--Nitrates-->
+    <string-array name="feedbacktypelistNita">
+        <item>@string/feedbacktypeNita1</item>
+        <item>@string/feedbacktypeNita2</item>
+        <item>@string/feedbacktypeNita3</item>
+        <item>@string/feedbacktypeNita4</item>
+        <item>@string/feedbacktypeNita5</item>
+        <item>@string/feedbacktypeNita6</item>
+        <item>@string/feedbacktypeNita7</item>
+    </string-array>
+    <!--Nitrites-->
+    <string-array name="feedbacktypelistNiti">
+        <item>@string/feedbacktypeNiti1</item>
+        <item>@string/feedbacktypeNiti2</item>
+        <item>@string/feedbacktypeNiti3</item>
+        <item>@string/feedbacktypeNiti4</item>
+        <item>@string/feedbacktypeNiti5</item>
+        <item>@string/feedbacktypeNiti6</item>
+        <item>@string/feedbacktypeNiti7</item>
+    </string-array>
+
+</resources>
