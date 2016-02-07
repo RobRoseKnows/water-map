@@ -33,7 +33,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import io.robrose.hop.watermap.aws.util.PinGroup;
 import io.robrose.hop.watermap.aws.util.WaterPin;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.v(LOG_TAG, "Footername Bar Clicked.");
         if(!focus.equals(lastLocationMarker)) {
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-            intent.putExtra(Utility.BUNDLE_GROUP_NUMBER, pinSelected); // TODO write code to keep track of what we're on
+            intent.putExtra(Utility.BUNDLE_PIN, pins.get(pinSelected));
             startActivity(intent);
         } else {
             populateMarkers();
@@ -271,7 +270,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), ZOOM_LEVEL));
         } else {
 
-            // Cycles through and finds the marker (and subsequent PinGroup) we're on.
             for(int i = 0; i < markers.size(); i++) {
                 if(markers.get(i).equals(marker)) {
                     pinSelected = i;

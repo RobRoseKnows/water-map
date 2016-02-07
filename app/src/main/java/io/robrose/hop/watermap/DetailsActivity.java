@@ -10,12 +10,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import io.robrose.hop.watermap.aws.util.PinGroup;
 import io.robrose.hop.watermap.aws.util.WaterPin;
 
 public class DetailsActivity extends ActionBarActivity {
     private WaterPin mWaterPin;
-    private int groupOn;
 
     @Bind(R.id.detail_name_textview) TextView detailName;
 
@@ -25,10 +23,8 @@ public class DetailsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_details);
 
         Bundle bundle = getIntent().getExtras();
-        groupOn = bundle.getInt(Utility.BUNDLE_GROUP_NUMBER);
-        detailName.setText(groupOn);
+        mWaterPin = bundle.getParcelable(Utility.BUNDLE_PIN);
 
-
-        this.setTitle(mWaterPin.zip);
+        this.setTitle(mWaterPin.name);
     }
 }
