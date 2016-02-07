@@ -63,6 +63,8 @@ public class DynamoGeoClient {
     private static GeoDataManager geoDataManager;
     private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
     private static String secretKey = "YpwBdGgvn6cBR6RTHTCoZb3FlCAf7JRgF8arwV33";
+    private static boolean initialized = false;
+
     /*
      * Before running the code:
      *      Fill in your AWS access credentials in the provided credentials
@@ -92,6 +94,9 @@ public class DynamoGeoClient {
 
 
     public static void init()  {
+        if(initialized)
+            return;
+
         /*
          * The ProfileCredentialsProvider will return your [default]
          * credential profile by reading from the credentials file located at
@@ -111,7 +116,8 @@ public class DynamoGeoClient {
         dynamoDB = new AmazonDynamoDBClient(credentials);
         Region usEast1 = Region.getRegion(Regions.US_EAST_1);
         dynamoDB.setRegion(usEast1);
-        main(null);
+
+        initialized = true;
     }
 
     public static void main(String[] args) {

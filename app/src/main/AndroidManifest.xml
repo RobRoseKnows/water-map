@@ -53,7 +53,10 @@
             android:label="@string/title_activity_settings" >
         </activity>
         -->
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity"
+            android:label="Details"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
