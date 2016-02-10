@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void populateMarkers() {
         queried = true;
-        getPinGroups(44.9337, -88.9761, 5000);
+        getPinGroups(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 5000);
         for(int i = 0; i < pins.size(); i++) {
             Log.v(LOG_TAG, "Yo. Added pin.");
             WaterPin onWaterPin = pins.get(i);
@@ -101,16 +101,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * This method refreshes the current focus of the camera to the last known location of the user.
      */
     private void refreshLastLocation() {
-        LatLng home = new LatLng(44.9337, -88.9761);
-        refreshLastLocation(home);
-//        pinSelected = -1;
-//        LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-//        MarkerOptions mark = new MarkerOptions()
-//                .position(home)
-//                .title("You!");
-//        lastLocationMarker = mMap.addMarker(mark);
-//        focus = lastLocationMarker;
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark.getPosition(), ZOOM_LEVEL));
+        pinSelected = -1;
+        LatLng home = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        MarkerOptions mark = new MarkerOptions()
+                .position(home)
+                .title("You!");
+        lastLocationMarker = mMap.addMarker(mark);
+        focus = lastLocationMarker;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark.getPosition(), ZOOM_LEVEL));
     }
 
     /**
@@ -179,24 +177,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             refreshLastLocation();
         }
-
-//        Map<String, AttributeValue> map = new HashMap<>();
-//
-//        map.put(Constants.FIELD_VIOL_CAT, new AttributeValue().setS("NASTY");
-//        map.put(Constants.FIELD_CONT_CODE, new AttributeValue().setS("3000");
-//        map.put(Constants.FIELD_VIOL_CODE, new AttributeValue().setS("NASTY");
-//
-//        majorRisk = buildBooleanFromString(map.get(Constants.FIELD_MAJOR_RISK).getS());
-//        majorViolation = buildBooleanFromString(map.get(Constants.FIELD_MAJOR_VIOL).getS());
-//
-//        addressLineOne = map.get(Constants.FIELD_ADDRESS_ONE).getS();
-//        addressLineTwo = map.get(Constants.FIELD_ADDRESS_TWO).getS();
-//        cityName = map.get(Constants.FIELD_CITY).getS();
-//        stateId = map.get(Constants.FIELD_STATE).getS();
-//
-//        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-//        intent.putExtra(Utility.BUNDLE_PIN, );
-//        startActivity(intent);
     }
 
     @OnClick(R.id.footer_name_bar)
