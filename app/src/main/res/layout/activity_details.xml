@@ -32,7 +32,8 @@
                 android:layout_height="96dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:id="@+id/hazard_type_iv" />
+                android:id="@+id/hazard_type_iv"
+                android:src="@drawable/ic_biohazard_black_48dp" />
 
             <TextView
                 android:id="@+id/explain_text"

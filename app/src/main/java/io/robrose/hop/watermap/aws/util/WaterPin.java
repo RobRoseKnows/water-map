@@ -25,9 +25,7 @@ public class WaterPin implements Parcelable{
     public boolean majorViolation;
 
     public double lat;
-    public double latOriginal;
     public double lng;
-    public double lngOriginal;
     public GeoPoint geoPoint;
 
     public String addressLineOne;
@@ -50,33 +48,6 @@ public class WaterPin implements Parcelable{
         stateId = map.get(Constants.FIELD_STATE).getS();
 
         name = addressLineOne + " " + cityName + ", " + stateId;
-    }
-
-    public WaterPin(String addressLineOne,
-                    String cityName,
-                    String stateId,
-                    boolean majorRisk,
-                    String contamCode,
-                    int zip,
-                    double lat,
-                    double lng) {
-        this.addressLineOne = addressLineOne;
-        this.cityName = cityName;
-        this.stateId = stateId;
-        this.majorRisk = majorRisk;
-        this.contamCode = contamCode;
-        this.zip = zip;
-        this.lat = lat;
-        this.lng = lng;
-
-        this.uuid = "";
-        this.name =  addressLineOne + " " + cityName + ", " + stateId;;
-
-        this.violCatCode = "";
-        this.violCode = "pi";
-        this.majorRisk = false;
-
-        this.addressLineTwo = "";
     }
 
     public WaterPin(Parcel in) {

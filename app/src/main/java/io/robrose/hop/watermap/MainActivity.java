@@ -14,6 +14,7 @@ import android.util.Log;
 
 //import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.amazonaws.geo.model.GeoPoint;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -33,12 +34,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.robrose.hop.watermap.aws.util.Constants;
 import io.robrose.hop.watermap.aws.util.WaterPin;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
@@ -167,26 +170,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.my_location_fab)
     public void onClickMyLocationFab(FloatingActionButton fab) {
         Log.v(LOG_TAG, "Click FAB");
-//        if(ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            Utility.permissionRationaleAndRequest(this,
-//                    Manifest.permission.ACCESS_COARSE_LOCATION,
-//                    PERMISSION_REQUEST_LAST_LOCATION);
-//        } else {
-//            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//            refreshLastLocation();
-//        }
-        WaterPin wp = new WaterPin("East Capitol St NE & First St SE",
-                "Washington",
-                "DC",
-                true,
-                "3000",
-                20004,
-                38.8899,
-                -77.0090);
-        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-        intent.putExtra(Utility.BUNDLE_PIN, wp);
-        startActivity(intent);
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Utility.permissionRationaleAndRequest(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    PERMISSION_REQUEST_LAST_LOCATION);
+        } else {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            refreshLastLocation();
+        }
+
+//        Map<String, AttributeValue> map = new HashMap<>();
+//
+//        map.put(Constants.FIELD_VIOL_CAT, new AttributeValue().setS("NASTY");
+//        map.put(Constants.FIELD_CONT_CODE, new AttributeValue().setS("3000");
+//        map.put(Constants.FIELD_VIOL_CODE, new AttributeValue().setS("NASTY");
+//
+//        majorRisk = buildBooleanFromString(map.get(Constants.FIELD_MAJOR_RISK).getS());
+//        majorViolation = buildBooleanFromString(map.get(Constants.FIELD_MAJOR_VIOL).getS());
+//
+//        addressLineOne = map.get(Constants.FIELD_ADDRESS_ONE).getS();
+//        addressLineTwo = map.get(Constants.FIELD_ADDRESS_TWO).getS();
+//        cityName = map.get(Constants.FIELD_CITY).getS();
+//        stateId = map.get(Constants.FIELD_STATE).getS();
+//
+//        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+//        intent.putExtra(Utility.BUNDLE_PIN, );
+//        startActivity(intent);
     }
 
     @OnClick(R.id.footer_name_bar)
