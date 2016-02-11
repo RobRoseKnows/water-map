@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
+    public static Location mLastLocation;
     private SupportMapFragment mMapFragment;
 
     // Holds all the pins by zipcode.
