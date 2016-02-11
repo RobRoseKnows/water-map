@@ -185,6 +185,17 @@ public class DynamoGeoClient {
         GetPointResult result = geoDataManager.getPoint(new GetPointRequest(point, attr));
         return new WaterPin(result.getGetItemResult().getItem());
     }
+    public static void insertPoint(double latitude, double longitude, String testType, String testResult){
+        GeoPoint geoPoint = new GeoPoint(latitude, latitude);
+        AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
+        AttributeValue testTypeAttributeValue = new AttributeValue().withS(testType);
+        AttributeValue testResultAttributeValue = new AttributeValue().withS(testResult);
+
+        PutPointRequest putPointRequest = new PutPointRequest(geoPoint, rangeKeyAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry("TEST_TYPE", testTypeAttributeValue);
+        putPointRequest.getPutItemRequest().addItemEntry("TEST_RESULT", testResultAttributeValue);
+        PutPointResult putPointResult = geoDataManager.putPoint(putPointRequest);
+    }
 
     public  static List<WaterPin> getRadialPoints(GeoPoint point, double radius){
        QueryRadiusResult result= geoDataManager.queryRadius(new QueryRadiusRequest(point, radius));
@@ -195,17 +206,6 @@ public class DynamoGeoClient {
         }
         Log.v("Dynamo", list.toString());
         return  list;
-    }
-
-        //TODO: Make this for water sites!
-    public static Map<String, AttributeValue> newItem(String name, int year, String rating, String... fans) {
-        Map<String, AttributeValue> item = new HashMap<>();
-        item.put("name", new AttributeValue(name));
-        item.put("year", new AttributeValue().withN(Integer.toString(year)));
-        item.put("rating", new AttributeValue(rating));
-        item.put("fans", new AttributeValue().withSS(fans));
-
-        return item;
     }
 
 }

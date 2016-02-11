@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--tests-->
+    <string-array name="feedbacktypelisttest">
+        <item>@string/feedbacktypepick1</item>
+        <item>@string/feedbacktypepick2</item>
+        <item>@string/feedbacktypepick3</item>
+        <item>@string/feedbacktypepick4</item>
+        <item>@string/feedbacktypepick5</item>
+        <item>@string/feedbacktypepick6</item>
+        <item>@string/feedbacktypepick7</item>
+    </string-array>
     <!--pH-->
     <string-array name="feedbacktypelistpH">
         <item>@string/feedbacktypepH1</item>
