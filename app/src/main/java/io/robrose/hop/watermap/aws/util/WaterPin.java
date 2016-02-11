@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public class WaterPin implements Parcelable{
 
+    private static final double PIN_VARIANCE  = .01;
+
     public String uuid;
     public String name;
 
@@ -62,6 +64,8 @@ public class WaterPin implements Parcelable{
         this.majorViolation = Boolean.parseBoolean(data[6]);
 
         this.lat = Double.parseDouble(data[7]);
+//        this.lat = (this.latOriginal - PIN_VARIANCE/2) + (Math.random() * PIN_VARIANCE);
+
         this.lng = Double.parseDouble(data[8]);
 
         this.addressLineOne = data[9];

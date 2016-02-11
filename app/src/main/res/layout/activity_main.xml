@@ -24,6 +24,7 @@
         fab:fab_colorPressed="#BBBBBB"
         fab:fab_colorRipple="#CCCCCC" />
 
+    <!--
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/add_point_fab"
         android:layout_width="wrap_content"
@@ -34,7 +35,7 @@
         android:src="@drawable/ic_info_black_24dp"
         fab:fab_colorNormal="#FF0000"
         fab:fab_colorPressed="#FF0000"
-        fab:fab_colorRipple="#AAAAAA" />
+        fab:fab_colorRipple="#AAAAAA" />-->
 
     <FrameLayout
         android:layout_width="match_parent"

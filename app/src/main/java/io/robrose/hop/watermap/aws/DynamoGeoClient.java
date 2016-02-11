@@ -1,5 +1,7 @@
 package io.robrose.hop.watermap.aws;
 
+import android.util.Log;
+
 import com.amazonaws.geo.model.GetPointRequest;
 import com.amazonaws.geo.model.GetPointResult;
 import com.amazonaws.geo.model.QueryRadiusRequest;
@@ -62,10 +64,10 @@ import io.robrose.hop.watermap.aws.util.WaterPin;
 public class DynamoGeoClient {
     private static GeoDataManagerConfiguration config;
     private static GeoDataManager geoDataManager;
-    private static String accessKey = "AKIAIK3X7CV2F2OP7MYQ";
-    private static String secretKey = "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";
+    private static String accessKey = Secret.AWSAccessKeyId;
+    private static String secretKey = Secret.AWSSecretKey;
     private static boolean initialized = false;
-    private static String tableName = "water-safe-locations-table";
+    private static String tableName = "geo-test";
 
     /*
      * Before running the code:
@@ -122,11 +124,11 @@ public class DynamoGeoClient {
         geoDataManager = new GeoDataManager(config);
 
 
+        notMain();
         initialized = true;
     }
 
-    public static void main(String[] args) {
-        init();
+    public static void notMain() {
 
         try {
             config = new GeoDataManagerConfiguration(dynamoDB, tableName);
@@ -162,27 +164,6 @@ public class DynamoGeoClient {
             TableDescription tableDescription = dynamoDB.describeTable(describeTableRequest).getTable();
             System.out.println("Table Description: " + tableDescription);
 
-            Map<String, String> m =new HashMap<>();
-            m.put("lat", "51.5034070");
-            m.put("lng", "-0.1275920");
-            m.put("violationCode", "47" );
-
-            // request = new JSONObject(m);
-            //try {
-            //    putPoint(request);
-            //}catch(JSONException f){
-            //    System.out.println("Bad JSON");
-            //}
-            // Scan items for movies with a year attribute greater than 1985
-            HashMap<String, Condition> scanFilter = new HashMap<>();
-            Condition condition = new Condition()
-                    .withComparisonOperator(ComparisonOperator.GT.toString())
-                    .withAttributeValueList(new AttributeValue().withN("1985"));
-            scanFilter.put("year", condition);
-            ScanRequest scanRequest = new ScanRequest(tableName);//.withScanFilter(scanFilter);
-            ScanResult scanResult = dynamoDB.scan(scanRequest);
-            System.out.println("Result: " + scanResult);
-
         } catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
                     + "to AWS, but was rejected with an error response for some reason.");
@@ -198,21 +179,6 @@ public class DynamoGeoClient {
             System.out.println("Error Message: " + ace.getMessage());
         }
     }
-    /*
-    private static void userPutPoint(String violCatCode, String contamCode, String violCode, double lat, double lng)  {
-        GeoPoint userGeoPoint = new GeoPoint(mLastLocation.latitude, mLastLocation.longitude);//mLastLocation is a lat and long
-        AttributeValue rangeKeyAttributeValue = new AttributeValue().withS(UUID.randomUUID().toString());
-        AttributeValue testTypeAttributeValue = new AttributeValue().withS(testTypeStr);
-        AttributeValue testResultAttributeValue = new AttributeValue().withS(testResultStr);
-
-        PutPointRequest putPointRequest = new PutPointRequest(userGeoPoint, rangeKeyAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("userTestType", testTypeAttributeValue);
-        putPointRequest.getPutItemRequest().addItemEntry("userTestResult", testResultAttributeValue);
-
-        PutPointResult putPointResult = userGeoDataManager.putPoint(putPointRequest);
-
-        //printPutPointResult(putPointResult, out);
-    }*/
 
     public static WaterPin getPoint(GeoPoint point, String UUID){
         AttributeValue attr= new AttributeValue().withS(UUID);
@@ -238,6 +204,7 @@ public class DynamoGeoClient {
         for (Map<String,AttributeValue> m: rawList) {
             list.add(new WaterPin(m));
         }
+        Log.v("Dynamo", list.toString());
         return  list;
     }
 

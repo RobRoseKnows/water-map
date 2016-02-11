@@ -36,8 +36,7 @@
         <ImageView
             android:id="@+id/leadViewimg"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@mipmap/ic_launcherlead" />
+            android:layout_height="300dp" />
 
 
     </LinearLayout>

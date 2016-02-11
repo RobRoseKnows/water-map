@@ -1,6 +1,8 @@
 package io.robrose.hop.watermap;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.amazonaws.geo.model.GeoPoint;
 
@@ -26,6 +28,8 @@ public class FetchTests {
         DynamoGeoClient.init();
         GeoPoint geoPoint = new GeoPoint(lat, lng);
         List<WaterPin> pins = DynamoGeoClient.getRadialPoints(geoPoint, radius);
+        Log.v("Fetcher", pins.toString());
+        Toast.makeText(context.getApplicationContext(), "Got data!", Toast.LENGTH_SHORT).show();
         return pins;
     }
 }
